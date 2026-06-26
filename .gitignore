@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+arcis_backend.egg-info
+uploads
+
+# Node
+node_modules/
+dist/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+*.log
