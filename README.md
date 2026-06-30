@@ -74,7 +74,7 @@ If you want to run backend directly during development:
 
 ```bash
 cd backend
-uvicorn main:app --reload
+uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 If you want to run frontend directly during development:

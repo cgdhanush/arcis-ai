@@ -15,31 +15,5 @@ services:
       timeout: 5s
       retries: 10
 
-  backend:
-    build:
-      context: ./backend
-    env_file:
-      - .env
-    environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://arcis:arcis@db:5400/arcis}
-      JWT_SECRET: ${JWT_SECRET:-change-this-secret}
-      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
-      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-120}
-    ports:
-      - "${API_PORT:-8000}:8000"
-    depends_on:
-      db:
-        condition: service_healthy
-
-  frontend:
-    build:
-      context: ./frontend
-    environment:
-      VITE_API_BASE_URL: http://localhost:${API_PORT:-8000}/api/v1
-    ports:
-      - "${WEB_PORT:-5173}:5173"
-    depends_on:
-      - backend
-
 volumes:
   postgres_data:
