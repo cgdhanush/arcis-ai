@@ -18,13 +18,13 @@ def get_metrics(
 ) -> DashboardMetricsResponse:
     pending_maps = (
         db.scalar(
-            select(func.count()).select_from(MapItem).where(MapItem.status == "PENDING")
+            select(func.count()).select_from(MapItem).where(MapItem.status == "Pending")
         )
         or 0
     )
     overdue_maps = (
         db.scalar(
-            select(func.count()).select_from(MapItem).where(MapItem.deadline_days <= 30)
+            select(func.count()).select_from(MapItem).where(MapItem.deadline <= 30)
         )
         or 0
     )

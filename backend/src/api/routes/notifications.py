@@ -38,6 +38,7 @@ def ingest_notification(
         external_id=payload.external_id,
         title=payload.title,
         content=payload.content,
+        status="Ingested",
     )
     db.add(notification)
     db.commit()
@@ -48,18 +49,21 @@ def ingest_notification(
 
     for m in maps:
         map_item = MapItem(
-            notification_id=notification.id,
+            regulation_id=notification.id,
             title=m.title,
-            owner_department=m.owner_department,
-            deadline_days=m.deadline_days,
+            description=m.title,
+            department=m.owner_department,
+            deadline=m.deadline_days,
             risk_level=m.risk_level,
+            priority_score=score_risk(m.deadline_days, m.risk_level),
+            status="Pending",
         )
         db.add(map_item)
         db.flush()
 
         risk_score = score_risk(m.deadline_days, m.risk_level)
         risk = Risk(
-            map_item_id=map_item.id,
+            map_id=map_item.id,
             score=risk_score,
             severity="HIGH" if risk_score >= 80 else "MEDIUM",
             assigned_department=m.owner_department,
@@ -71,7 +75,7 @@ def ingest_notification(
     append_audit_record(
         db,
         action_type="INGEST",
-        resource_type="NOTIFICATION",
+        resource_type="REGULATION",
         resource_id=str(notification.id),
         payload={
             "source": payload.source,

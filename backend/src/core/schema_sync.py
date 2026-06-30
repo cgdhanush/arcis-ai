@@ -5,9 +5,11 @@ from sqlalchemy.engine import Engine
 
 SCHEMA_UPDATES: dict[str, dict[str, str]] = {
     "regulations": {
+        "external_id": "VARCHAR(128)",
         "title": "VARCHAR(512)",
         "source": "VARCHAR(64)",
         "content": "TEXT",
+        "status": "VARCHAR(32)",
         "created_at": "TIMESTAMP",
     },
     "departments": {

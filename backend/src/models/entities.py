@@ -10,9 +10,13 @@ class Regulation(Base):
     __tablename__ = "regulations"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    external_id: Mapped[str] = mapped_column(
+        String(128), unique=True, index=True, nullable=True
+    )
     title: Mapped[str] = mapped_column(String(512), index=True)
     source: Mapped[str] = mapped_column(String(64), index=True)
     content: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(32), default="Draft", index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 

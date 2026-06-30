@@ -55,7 +55,20 @@ docker compose up --build
 
 - http://localhost:5173
 
-4. Get token in UI using one of the supported roles.
+4. Seed sample demonstration data (optional but recommended after startup):
+
+```bash
+token=$(curl -s -X POST http://localhost:8000/api/v1/auth/token \
+  -H "Content-Type: application/json" \
+  -d '{"username":"demo.user","role":"compliance_officer"}' | python -c 'import sys, json; print(json.load(sys.stdin)["access_token"])')
+
+curl -s -X POST http://localhost:8000/api/v1/sample-data/seed \
+  -H "Authorization: Bearer $token" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+5. Get token in UI using one of the supported roles.
 
 If you want to run backend directly during development:
 

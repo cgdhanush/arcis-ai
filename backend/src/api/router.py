@@ -13,7 +13,9 @@ from src.api.routes import (
     ingestion,
     maps,
     notifications,
+    regulations,
     risks,
+    sample_data,
     validation,
 )
 
@@ -29,6 +31,8 @@ api_router.include_router(audit_log.router)
 api_router.include_router(evidence.router)
 api_router.include_router(audit.router)
 api_router.include_router(maps.router)
+api_router.include_router(regulations.router)
 api_router.include_router(notifications.router)
 api_router.include_router(risks.router)
+api_router.include_router(sample_data.router)
 api_router.include_router(dashboard.router)

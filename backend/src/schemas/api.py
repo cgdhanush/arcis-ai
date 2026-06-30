@@ -28,6 +28,36 @@ class MAPResponse(BaseModel):
     items: list[MAPItem]
 
 
+class RegulationResponse(BaseModel):
+    id: int
+    external_id: str | None
+    title: str
+    source: str
+    content: str
+    status: str
+    created_at: str
+
+
+class MapListResponse(BaseModel):
+    id: int
+    title: str
+    description: str
+    department: str
+    deadline: int
+    risk_level: str
+    priority_score: int
+    status: str
+    created_at: str
+
+
+class RiskListResponse(BaseModel):
+    id: int
+    map_id: int
+    score: int
+    severity: str
+    assigned_department: str
+
+
 class DashboardResponse(BaseModel):
     total_regulations: int
     pending_maps: int
@@ -65,18 +95,21 @@ class NotificationResponse(BaseModel):
     status: str
 
 
-class MapResponse(BaseModel):
+class MapListResponse(BaseModel):
     id: int
     title: str
-    owner_department: str
-    deadline_days: int
+    description: str
+    department: str
+    deadline: int
     risk_level: str
+    priority_score: int
     status: str
+    created_at: str
 
 
-class RiskResponse(BaseModel):
+class RiskListResponse(BaseModel):
     id: int
-    map_item_id: int
+    map_id: int
     score: int
     severity: str
     assigned_department: str
